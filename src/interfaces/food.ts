@@ -11,5 +11,5 @@ export default interface IFood {
   
     create(canvas: Canvas, field: Field, snakeCoords: string[]): void;
   
-    clear(canvas: Canvas, field: Field): void;
+    clear(): void;
 }

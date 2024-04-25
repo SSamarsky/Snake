@@ -24,5 +24,5 @@ export default interface ISnake {
   
     move(canvas: Canvas, field: Field, food: Food): void;
   
-    clear(canvas: Canvas, field: Field): void;
+    clear(): void;
   }

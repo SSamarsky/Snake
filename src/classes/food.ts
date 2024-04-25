@@ -37,16 +37,10 @@ export default class Food {
     }
   }
 
-  clear(canvas: Canvas, field: Field) {
-    if (this.coord) {
-        const arr = this.coord.split("-");
-        const x = Number(arr[0]);
-        const y = Number(arr[1]);
-        canvas.context?.clearRect(x, y, field.sizeCell, field.sizeCell);
+  clear() {
         this.coord = '';
         this.x = 0;
         this.y = 0;
         this.isFood = false;
-      }
   }
 }

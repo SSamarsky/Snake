@@ -65,8 +65,8 @@ export default class Game implements IGame {
         clearInterval(snake.moving);
         clearInterval(food.creating);
 
-        snake.clear(canvas, field);             // Рефакторить методы, т.к. нет необходимаости в них стирать холст, только данные!
-        food.clear(canvas, field);
+        snake.clear();
+        food.clear();
 
         snake.create(canvas, field)
     }

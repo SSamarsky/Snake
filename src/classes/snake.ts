@@ -180,15 +180,7 @@ export default class Snake implements ISnake {
     }
   }
 
-  clear(canvas: Canvas, field: Field) {
-    if (this.coords.length !== 0) {
-      this.coords.map((el) => {
-        const arr = el.split("-");
-        const x = Number(arr[0]);
-        const y = Number(arr[1]);
-        canvas.context?.clearRect(x, y, field.sizeCell, field.sizeCell);
-      });
-    }
+  clear() {
     this.coords.length = 0;
     this.direction = "y+";
     this.size = 2;
