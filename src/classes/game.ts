@@ -8,13 +8,11 @@ export default class Game implements IGame {
     isStart;
     isPlay;
     isPause;
-    isFinish;
 
     constructor() {
         this.isStart = false;
         this.isPlay = false;
         this.isPause = false;
-        this.isFinish = false;
     }
 
     start(snake: Snake, canvas: Canvas, field: Field, food: Food) {
@@ -22,9 +20,13 @@ export default class Game implements IGame {
             this.isStart = true;
             this.isPlay = true;
             this.isPause = false;
-            this.isFinish = false;
+
+            snake.clear();
+            food.clear()
+            canvas.clear(field.width, field.height);
+            snake.create(canvas, field);
     
-            snake.moving = setInterval(() => snake.move(canvas, field, food), snake.delay);
+            snake.moving = setInterval(() => snake.move(canvas, field, food, this), snake.delay);
             food.creating = setInterval(() => food.create(canvas, field, snake.coords), 1000);
         }
 
@@ -35,7 +37,7 @@ export default class Game implements IGame {
             this.isPlay = true;
             this.isPause = false;
 
-            snake.moving = setInterval(() => snake.move(canvas, field, food), snake.delay);
+            snake.moving = setInterval(() => snake.move(canvas, field, food, this), snake.delay);
             food.creating = setInterval(() => food.create(canvas, field, snake.coords), 1000);
         }
     }
@@ -50,15 +52,20 @@ export default class Game implements IGame {
         }
     }
 
-    finish() {
+    finish(snake: Snake, food: Food) {
+        this.isStart = false;
+        this.isPlay = false;
+        this.isPause = false;
 
+        console.log('Game Over!');
+        clearInterval(snake.moving);
+        clearInterval(food.creating);
     }
 
     reset(snake: Snake, canvas: Canvas, field: Field, food: Food) {
         this.isStart = false;
         this.isPlay = false;
         this.isPause = false;
-        this.isFinish = false;
 
         canvas.clear(field.width, field.height);
 
@@ -68,6 +75,6 @@ export default class Game implements IGame {
         snake.clear();
         food.clear();
 
-        snake.create(canvas, field)
+        snake.create(canvas, field);
     }
 }

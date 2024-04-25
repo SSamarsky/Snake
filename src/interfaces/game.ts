@@ -7,7 +7,6 @@ export default interface IGame {
     isStart: boolean;
     isPlay: boolean;
     isPause: boolean;
-    isFinish: boolean;
 
     start(snake: Snake, canvas: Canvas, field: Field, food: Food): void;
 
@@ -15,7 +14,7 @@ export default interface IGame {
 
     pause(snake: Snake, food: Food): void;
 
-    finish(): void;
+    finish(snake: Snake, food: Food): void;
 
     reset(snake: Snake, canvas: Canvas, field: Field, food: Food): void;
 }

@@ -28,18 +28,15 @@ document.addEventListener('keydown', (e) => {
         }
 
         game.start(snake, canvas, field, food);
-        
     }
 
     const keysReset = ['R', 'r', 'К', 'к'];
-
     if (keysReset.includes(e.key)) {
         game.reset(snake, canvas, field, food);
     }
-
+    
     const keysToggleSpeed = ['E', 'e', 'У', 'у'];
-
-    if (keysToggleSpeed.includes(e.key)) {
-        snake.toggleSpeed(2, canvas, field, food);
+    if (keysToggleSpeed.includes(e.key) && game.isStart) {
+        snake.toggleSpeed(2, canvas, field, food, game);
     }
 });

@@ -1,6 +1,7 @@
 import Canvas from "../classes/canvas";
 import Field from "../classes/field";
 import Food from "../classes/food";
+import Game from "../classes/game";
 
 export default interface ISnake {
     color: string;
@@ -20,9 +21,9 @@ export default interface ISnake {
   
     setDirection(e: Event): void;
 
-    toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food): void;
+    toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food, game: Game): void;
   
-    move(canvas: Canvas, field: Field, food: Food): void;
+    move(canvas: Canvas, field: Field, food: Food, game: Game): void;
   
     clear(): void;
   }

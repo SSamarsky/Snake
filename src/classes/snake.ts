@@ -2,6 +2,7 @@ import ISnake from "../interfaces/snake";
 import Canvas from "./canvas";
 import Field from "./field";
 import Food from "./food";
+import Game from "./game";
 
 export default class Snake implements ISnake {
   color;
@@ -82,22 +83,22 @@ export default class Snake implements ISnake {
     }
   }
 
-  toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food) {
+  toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food, game: Game) {
     if (this.isDelayReducing) {
       this.isDelayReducing = false;
       clearInterval(this.moving);
-      this.moving = setInterval(() => this.move(canvas, field, food), this.delay);
+      this.moving = setInterval(() => this.move(canvas, field, food, game), this.delay);
     } else {
       this.isDelayReducing = true;
       this.delayReducing = this.delay / n;
       clearInterval(this.moving);
-      this.moving = setInterval(() => this.move(canvas, field, food), this.delayReducing);
+      this.moving = setInterval(() => this.move(canvas, field, food, game), this.delayReducing);
     }
 
     
   }
 
-  move(canvas: Canvas, field: Field, food: Food) {
+  move(canvas: Canvas, field: Field, food: Food, game: Game) {
     const head: string[] = this.coords[this.coords.length - 1].split("-");
     const tail: string[] = this.coords[0].split("-");
 
@@ -157,9 +158,9 @@ export default class Snake implements ISnake {
     if (this.coords.includes(newHead) || isWall) {
       if (newHead === coordBug) {
         this.isBug = true;
-        this.move(canvas, field, food);
+        this.move(canvas, field, food, game);
       } else {
-        console.log("Game Over!");
+        game.finish(this, food);
       }
     } else {
       this.coords.push(newHead);
@@ -169,7 +170,7 @@ export default class Snake implements ISnake {
         food.isFood = false;
         this.size += 1;
       } else {
-        canvas.context?.clearRect(
+          canvas.context?.clearRect(
           removeX,
           removeY,
           field.sizeCell,
@@ -184,5 +185,7 @@ export default class Snake implements ISnake {
     this.coords.length = 0;
     this.direction = "y+";
     this.size = 2;
+    this.delayReducing = 0;
+    this.isDelayReducing = false;
   }
 }
