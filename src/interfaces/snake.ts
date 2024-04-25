@@ -4,7 +4,9 @@ import Food from "../classes/food";
 
 export default interface ISnake {
     color: string;
-    speed: number;
+    delay: number;
+    delayReducing: number;
+    isDelayReducing: boolean;
     size: number;
     coords: string[];
     direction: string;
@@ -17,6 +19,8 @@ export default interface ISnake {
     create(canvas: Canvas, field: Field): void;
   
     setDirection(e: Event): void;
+
+    toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food): void;
   
     move(canvas: Canvas, field: Field, food: Food): void;
   

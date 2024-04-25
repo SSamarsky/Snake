@@ -13,7 +13,7 @@ export default class Canvas implements ICanvas {
       canvas.width = width
       canvas.height = height;
       canvas.className = 'canvas';
-      root.appendChild(canvas);
+      root?.appendChild(canvas);
     }
   
     clear(width: number, height: number) {

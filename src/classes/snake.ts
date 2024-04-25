@@ -5,7 +5,9 @@ import Food from "./food";
 
 export default class Snake implements ISnake {
   color;
-  speed;
+  delay;
+  delayReducing;
+  isDelayReducing;
   size;
   coords: string[];
   direction;
@@ -15,9 +17,11 @@ export default class Snake implements ISnake {
   isBug;
   isDebug;
 
-  constructor(color: string, speed: number) {
+  constructor(color: string, delay: number) {
     this.color = color;
-    this.speed = speed;
+    this.delay = delay;
+    this.delayReducing = 0;
+    this.isDelayReducing = false;
     this.size = 2;
     this.coords = [];
     this.direction = "y+";
@@ -76,6 +80,21 @@ export default class Snake implements ISnake {
       this.direction = "y+";
       this.directionNext = "y+";
     }
+  }
+
+  toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food) {
+    if (this.isDelayReducing) {
+      this.isDelayReducing = false;
+      clearInterval(this.moving);
+      this.moving = setInterval(() => this.move(canvas, field, food), this.delay);
+    } else {
+      this.isDelayReducing = true;
+      this.delayReducing = this.delay / n;
+      clearInterval(this.moving);
+      this.moving = setInterval(() => this.move(canvas, field, food), this.delayReducing);
+    }
+
+    
   }
 
   move(canvas: Canvas, field: Field, food: Food) {
@@ -148,6 +167,7 @@ export default class Snake implements ISnake {
 
       if (newHead === food.coord) {
         food.isFood = false;
+        this.size += 1;
       } else {
         canvas.context?.clearRect(
           removeX,
@@ -171,5 +191,6 @@ export default class Snake implements ISnake {
     }
     this.coords.length = 0;
     this.direction = "y+";
+    this.size = 2;
   }
 }
