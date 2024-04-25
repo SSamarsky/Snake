@@ -1,0 +1,15 @@
+.canvas {
+  border: 1px solid #000;
+}
+
+.btn {
+  width: 75px;
+  font-size: 14px;
+  padding: 1px 5px;
+  cursor: pointer;
+  transition: all .2s linear;
+
+  &:hover {
+    opacity: .8;
+  }
+}
