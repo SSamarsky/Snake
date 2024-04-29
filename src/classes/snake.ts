@@ -51,8 +51,7 @@ export default class Snake implements ISnake {
     this.coords.push(tail, head);
 
     canvas.drawTail(this.color, tail, field);
-
-    canvas.drawRectangle(this.color, head, field);
+    canvas.drawHead(this.color, "orange", head, field);
   }
 
   setDirection(e: KeyboardEvent) {
@@ -150,12 +149,13 @@ export default class Snake implements ISnake {
     }
 
     const newHead = { dir: this.direction, coord: x + "-" + y };
-    const coordBug: string = this.coords[this.coords.length - 2]["coord"];
+    const coordPrevHead = this.coords[this.coords.length - 2];
+    const coordHead = this.coords[this.coords.length - 1];
 
     let isCoord = Tool.checkCoord(newHead, this.coords);
 
     if (isCoord || isWall) {
-      if (newHead["coord"] === coordBug) {
+      if (newHead["coord"] === coordPrevHead["coord"]) {
         this.isBug = true;
         this.move(canvas, field, food, game);
       } else {
@@ -163,7 +163,8 @@ export default class Snake implements ISnake {
       }
     } else {
       this.coords.push(newHead);
-      canvas.drawRectangle(this.color, newHead, field);
+      canvas.drawHead(this.color, "orange", newHead, field);
+      canvas.clearEyes(this.color, coordHead, field);
 
       if (newHead["coord"] === food.coord["coord"]) {
         food.isFood = false;
@@ -178,8 +179,6 @@ export default class Snake implements ISnake {
         this.coords.shift();
       }
     }
-
-    //canvas.drawTail(this.color, this.coords[0], field);
   }
 
   clear() {

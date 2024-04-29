@@ -8,5 +8,11 @@ export default interface ICanvas {
 
   clear(width: number, height: number): void;
 
-  drawRectangle(color: string, coord: TCoord, field: Field): void;
+  drawPoint(color: string, coord: TCoord, field: Field): void;
+
+  drawEyes(color: string, coord: TCoord, field: Field): void;
+
+  drawBody(color: string, coord: TCoord, field: Field): void;
+
+  clearEyes(color: string, coord: TCoord, field: Field): void;
 }
