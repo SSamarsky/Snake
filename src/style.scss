@@ -208,10 +208,6 @@ input[type="range"]::-moz-range-thumb {
   background: white;
 }
 
-.bold {
-  font-weight: bold;
-}
-
 .game {
   min-width: 580px;
   margin-bottom: 10px;
@@ -238,4 +234,89 @@ input[type="range"]::-moz-range-thumb {
 
 .walls {
   border: 3px solid var(--colorGray);
+}
+
+.info {
+  min-width: 270px;
+  margin-left: 50px;
+
+  .result li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    p, span {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  }
+
+  .wins__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+
+    h2 {
+      margin-right: 40px;
+      margin-bottom: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all .2s linear;
+
+      &:hover {
+        color: var(--colorGreen);
+      }
+    }
+
+    button {
+      margin-right: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-style: italic;
+      color: var(--colorGray);
+      transition: all .2s linear;
+
+      &:hover {
+        color: var(--colorGreen);
+      }
+    }
+  }
+
+  .wins__text {
+    margin-bottom: 5px;
+    color: var(--colorGray);
+    font-size: 14px;
+  }
+}
+
+.wins__table {
+  th, td {
+    text-align: center;
+    padding: 0 7px;
+    font-size: 14px;
+  }
+
+  th {
+    padding-bottom: 3px;
+  }
+
+  tr td:nth-child(1),
+  tr th:nth-child(1) {
+    text-align: start;
+    padding-left: 0;
+  }
+}
+
+.invisible {
+  display: none;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.fix--width {
+  max-width: 80px;
 }
