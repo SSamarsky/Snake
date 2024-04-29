@@ -2,6 +2,7 @@ import Canvas from "../classes/canvas";
 import Field from "../classes/field";
 import Food from "../classes/food";
 import Game from "../classes/game";
+import { TCoord } "../types/coord";
 
 export default interface ISnake {
     color: string;
@@ -9,7 +10,7 @@ export default interface ISnake {
     delayReducing: number;
     isDelayReducing: boolean;
     size: number;
-    coords: string[];
+    coords: TCoord[];
     direction: string;
     directionPrev: string;
     directionNext: string;

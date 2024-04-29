@@ -1,11 +1,12 @@
 import Canvas from "../classes/canvas";
 import Field from "../classes/field";
+import { TCoord } from "../types/coord";
 
 export default interface IFood {
     color: string;
     x: number;
     y: number;
-    coord: string;
+    coord: TCoord;
     isFood: boolean;
     creating: number | undefined;
   

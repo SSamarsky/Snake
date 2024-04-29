@@ -3,6 +3,8 @@ import Canvas from "./canvas";
 import Field from "./field";
 import Food from "./food";
 import Game from "./game";
+import { TCoord } from "../types/coord";
+import Tool from "./tool";
 
 export default class Snake implements ISnake {
   color;
@@ -10,7 +12,7 @@ export default class Snake implements ISnake {
   delayReducing;
   isDelayReducing;
   size;
-  coords: string[];
+  coords: TCoord[];
   direction;
   directionPrev;
   directionNext;
@@ -34,28 +36,25 @@ export default class Snake implements ISnake {
   }
 
   create(canvas: Canvas, field: Field) {
-    const coord = Math.floor(field.width / 2) - field.sizeCell;
-    canvas.drawRectangle(
-      this.color,
-      coord,
-      coord,
-      field.sizeCell,
-      field.sizeCell
-    );
+    const c = Math.floor(field.width / 2) - field.sizeCell;
 
-    canvas.drawRectangle(
-      this.color,
-      coord,
-      coord + field.sizeCell,
-      field.sizeCell,
-      field.sizeCell
-    );
+    const tail = {
+      dir: this.direction,
+      coord: c + "-" + c,
+    };
 
-    const tail: string = coord + "-" + coord;
-    const head: string = coord + "-" + (coord + field.sizeCell);
+    const head = {
+      dir: this.direction,
+      coord: c + "-" + (c + field.sizeCell),
+    };
+
     this.coords.push(tail, head);
+
+    canvas.drawTail(this.color, tail, field);
+
+    canvas.drawRectangle(this.color, head, field);
   }
-  
+
   setDirection(e: KeyboardEvent) {
     const keyboardsKey = {
       left: ["ArrowLeft", "a", "A", "ф", "Ф"],
@@ -87,26 +86,24 @@ export default class Snake implements ISnake {
     if (this.isDelayReducing) {
       this.isDelayReducing = false;
       clearInterval(this.moving);
-      this.moving = setInterval(() => this.move(canvas, field, food, game), this.delay);
+      this.moving = setInterval(
+        () => this.move(canvas, field, food, game),
+        this.delay
+      );
     } else {
       this.isDelayReducing = true;
       this.delayReducing = this.delay / n;
       clearInterval(this.moving);
-      this.moving = setInterval(() => this.move(canvas, field, food, game), this.delayReducing);
+      this.moving = setInterval(
+        () => this.move(canvas, field, food, game),
+        this.delayReducing
+      );
     }
-
-    
   }
 
   move(canvas: Canvas, field: Field, food: Food, game: Game) {
-    const head: string[] = this.coords[this.coords.length - 1].split("-");
-    const tail: string[] = this.coords[0].split("-");
-
-    let x = Number(head[0]);
-    let y = Number(head[1]);
-
-    const removeX = Number(tail[0]);
-    const removeY = Number(tail[1]);
+    let [x, y] = Tool.getXY(this.coords[this.coords.length - 1]);
+    const [removeX, removeY] = Tool.getXY(this.coords[0]);
 
     let isWall = false;
 
@@ -152,11 +149,13 @@ export default class Snake implements ISnake {
         break;
     }
 
-    const newHead: string = x + "-" + y;
-    const coordBug: string = this.coords[this.coords.length - 2];
+    const newHead = { dir: this.direction, coord: x + "-" + y };
+    const coordBug: string = this.coords[this.coords.length - 2]["coord"];
 
-    if (this.coords.includes(newHead) || isWall) {
-      if (newHead === coordBug) {
+    let isCoord = Tool.checkCoord(newHead, this.coords);
+
+    if (isCoord || isWall) {
+      if (newHead["coord"] === coordBug) {
         this.isBug = true;
         this.move(canvas, field, food, game);
       } else {
@@ -164,13 +163,13 @@ export default class Snake implements ISnake {
       }
     } else {
       this.coords.push(newHead);
-      canvas.drawRectangle(this.color, x, y, field.sizeCell, field.sizeCell);
+      canvas.drawRectangle(this.color, newHead, field);
 
-      if (newHead === food.coord) {
+      if (newHead["coord"] === food.coord["coord"]) {
         food.isFood = false;
         this.size += 1;
       } else {
-          canvas.context?.clearRect(
+        canvas.context?.clearRect(
           removeX,
           removeY,
           field.sizeCell,
@@ -179,6 +178,8 @@ export default class Snake implements ISnake {
         this.coords.shift();
       }
     }
+
+    //canvas.drawTail(this.color, this.coords[0], field);
   }
 
   clear() {
