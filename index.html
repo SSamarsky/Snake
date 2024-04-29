@@ -1,19 +1,98 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake Game</title>
-  </head>
-  <body>
-  <main>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake Game</title>
+</head>
+
+<body>
+  <header class="header">
+    <h1>Snake</h1>
+  </header>
+  <main class="main">
+    <div class="block">
+      <div class="block__head">
+        <h2>Settings</h2>
+        <label><input id="lang" type="checkbox" name="lang"><span id="lang-text">En</span></label>
+      </div>
+      <ul class="block__list">
+        <li class="list">
+          <div class="list__head">
+            <p>Size</p>
+            <span id="size-text">15x15</span>
+          </div>
+          <ul class="item__list">
+            <li>
+              <label><input type="radio" name="size" value="10"><span>10</span></label>
+            </li>
+            <li>
+              <label><input type="radio" name="size" value="15"><span>15</span></label>
+            </li>
+            <li>
+              <label><input type="radio" name="size" value="20"><span>20</span></label>
+            </li>
+          </ul>
+          <input id="size-range" name="size" type="range" min="5" max="50" value="20">
+        </li>
+
+        <li class="list">
+          <div class="list__head">
+            <p>Delay</p>
+            <span id="delay-text">250ms</span>
+          </div>
+          <ul class="item__list">
+            <li>
+              <label><input type="radio" name="delay" value="150"><span>150</span></label>
+            </li>
+            <li>
+              <label><input type="radio" name="delay" value="200"><span>200</span></label>
+            </li>
+            <li>
+              <label><input type="radio" name="delay" value="250"><span>250</span></label>
+            </li>
+          </ul>
+          <input id="delay-range" name="delay" type="range" min="50" max="500" value="200">
+        </li>
+
+        <li class="list">
+          <div class="list__head">
+            <p>Delay</p>
+            <span id="cell-text">250ms</span>
+          </div>
+          <ul class="item__list">
+            <li>
+              <label><input type="radio" name="cell" value="10"><span>10</span></label>
+            </li>
+            <li>
+              <label><input type="radio" name="cell" value="15"><span>15</span></label>
+            </li>
+            <li>
+              <label><input type="radio" name="cell" value="20"><span>20</span></label>
+            </li>
+          </ul>
+          <input id="cell-range" name="cell" type="range" min="5" max="50" value="20">
+        </li>
+
+        <li class="item__checkbox">
+          <label>
+            <p class="bold">Walls: </p><input id="walls" type="checkbox" name="walls"><span id="walls-text">Yes</span>
+          </label>
+        </li>
+      </ul>
+    </div>
     <div id="app"></div>
     <div class="buttons">
       <button id="btn-start" class="btn">Play</button>
       <button id="btn-reset" class="btn">Reset</button>
     </div>
   </main>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+  <footer class="footer">
+    <p>S.Samarsky</p>
+  </footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
