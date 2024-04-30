@@ -36,7 +36,7 @@ export default class Snake implements ISnake {
   }
 
   create(canvas: Canvas, field: Field) {
-    const c = Math.floor(field.width / 2) - field.sizeCell;
+    const c = Math.floor(field.countCellX / 2) * field.sizeCell;
 
     const tail = {
       dir: this.direction,
@@ -169,6 +169,10 @@ export default class Snake implements ISnake {
       if (newHead["coord"] === food.coord["coord"]) {
         food.isFood = false;
         this.size += 1;
+
+        if (this.size === field.countCellX * field.countCellY) {
+          game.win(this, food, canvas, field);
+        }
       } else {
         canvas.context?.clearRect(
           removeX,

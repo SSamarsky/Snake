@@ -247,7 +247,7 @@ export default class Canvas implements ICanvas {
       this.context.fillStyle = color;
     }
 
-    if (field.width >= 100) {
+    if (field.width > 100) {
       this.context?.fillText('Game Over!', x, y);
     }
 

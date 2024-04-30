@@ -3,6 +3,7 @@ import Canvas from "./canvas";
 import Field from "./field";
 import Food from "./food";
 import Snake from "./snake";
+import Time from "./time";
 
 export default class Game implements IGame {
   isStart;
@@ -15,7 +16,7 @@ export default class Game implements IGame {
     this.isPause = false;
   }
 
-  start(snake: Snake, canvas: Canvas, field: Field, food: Food) {
+  start(snake: Snake, canvas: Canvas, field: Field, food: Food, time: Time) {
     if (!this.isStart) {
       this.isStart = true;
       this.isPlay = true;
@@ -34,10 +35,12 @@ export default class Game implements IGame {
         () => food.create(canvas, field, snake.coords),
         snake.delay
       );
+      time.clear();
+      time.play();
     }
   }
 
-  play(snake: Snake, canvas: Canvas, field: Field, food: Food) {
+  play(snake: Snake, canvas: Canvas, field: Field, food: Food, time: Time) {
     if (this.isStart && this.isPause && !this.isPlay) {
       this.isPlay = true;
       this.isPause = false;
@@ -50,20 +53,24 @@ export default class Game implements IGame {
         () => food.create(canvas, field, snake.coords),
         snake.delay
       );
+
+      time.play();
     }
   }
 
-  pause(snake: Snake, food: Food) {
+  pause(snake: Snake, food: Food, time: Time) {
     if (this.isStart && this.isPlay) {
       this.isPause = true;
       this.isPlay = false;
 
       clearInterval(snake.moving);
       clearInterval(food.creating);
+
+      time.pause();
     }
   }
 
-  gameOver(snake: Snake, food: Food, canvas: Canvas, field: Field) {
+  gameOver(snake: Snake, food: Food, canvas: Canvas, field: Field, time: Time) {
     this.isStart = false;
     this.isPlay = false;
     this.isPause = false;
@@ -71,9 +78,11 @@ export default class Game implements IGame {
     clearInterval(snake.moving);
     clearInterval(food.creating);
     canvas.drawGameOver("#da0000", field);
+
+    time.pause();
   }
 
-  win(snake: Snake, food: Food, canvas: Canvas, field: Field) {
+  win(snake: Snake, food: Food, canvas: Canvas, field: Field, time: Time) {
     this.isStart = false;
     this.isPlay = false;
     this.isPause = false;
@@ -81,9 +90,11 @@ export default class Game implements IGame {
     clearInterval(snake.moving);
     clearInterval(food.creating);
     canvas.drawWin("#fff", field);
+
+    time.pause();
   }
 
-  reset(snake: Snake, canvas: Canvas, field: Field, food: Food) {
+  reset(snake: Snake, canvas: Canvas, field: Field, food: Food, time: Time) {
     this.isStart = false;
     this.isPlay = false;
     this.isPause = false;
@@ -97,5 +108,7 @@ export default class Game implements IGame {
     food.clear();
 
     snake.create(canvas, field);
+
+    time.clear();
   }
 }

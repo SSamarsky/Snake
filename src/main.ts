@@ -4,10 +4,16 @@ import "./style.scss";
 import Snake from "./classes/snake";
 import Food from "./classes/food";
 import Game from "./classes/game";
+import Time from "./classes/time";
 
 const root = document.querySelector("#app");
 
-const field = new Field(20, 20, 20, true);
+const htmlTime = document.querySelector("#time");
+const htmlScore = document.querySelector("#score");
+
+const time = new Time(htmlTime!);
+
+const field = new Field(10, 10, 20, false);
 const canvas = new Canvas();
 canvas.create(field.width, field.height, root);
 
@@ -27,19 +33,19 @@ document.addEventListener("keydown", (e) => {
 
   if (e.key === " " || e.key === "Enter") {
     if (game.isPause) {
-      game.play(snake, canvas, field, food);
+      game.play(snake, canvas, field, food, time);
       btnStart!.textContent = "Pause";
     } else if (game.isPlay) {
-      game.pause(snake, food);
+      game.pause(snake, food, time);
       btnStart!.textContent = "Play";
     }
 
-    game.start(snake, canvas, field, food);
+    game.start(snake, canvas, field, food, time);
   }
 
   const keysReset = ["R", "r", "К", "к"];
   if (keysReset.includes(e.key)) {
-    game.reset(snake, canvas, field, food);
+    game.reset(snake, canvas, field, food, time);
     btnStart!.textContent = "Play";
   }
 
@@ -51,20 +57,20 @@ document.addEventListener("keydown", (e) => {
 
 btnStart?.addEventListener("click", () => {
   if (!game.isStart) {
-    game.start(snake, canvas, field, food);
+    game.start(snake, canvas, field, food, time);
     btnStart.textContent = "Pause";
   } else {
     if (game.isPause) {
-      game.play(snake, canvas, field, food);
+      game.play(snake, canvas, field, food, time);
       btnStart.textContent = "Pause";
     } else if (game.isPlay) {
-      game.pause(snake, food);
+      game.pause(snake, food, time);
       btnStart.textContent = "Play";
     }
   }
 });
 
 btnReset?.addEventListener("click", () => {
-  game.reset(snake, canvas, field, food);
+  game.reset(snake, canvas, field, food, time);
   btnStart!.textContent = "Play";
 });
