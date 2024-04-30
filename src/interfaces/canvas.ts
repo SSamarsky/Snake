@@ -17,4 +17,6 @@ export default interface ICanvas {
   clearEyes(color: string, coord: TCoord, field: Field): void;
 
   drawGameOver(color: string, field: Field): void;
+
+  drawWin(color: string, field: Field): void;
 }

@@ -159,7 +159,7 @@ export default class Snake implements ISnake {
         this.isBug = true;
         this.move(canvas, field, food, game);
       } else {
-        game.finish(this, food, canvas, field);
+        game.gameOver(this, food, canvas, field);
       }
     } else {
       this.coords.push(newHead);

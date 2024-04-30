@@ -63,7 +63,7 @@ export default class Game implements IGame {
     }
   }
 
-  finish(snake: Snake, food: Food, canvas: Canvas, field: Field) {
+  gameOver(snake: Snake, food: Food, canvas: Canvas, field: Field) {
     this.isStart = false;
     this.isPlay = false;
     this.isPause = false;
@@ -71,6 +71,16 @@ export default class Game implements IGame {
     clearInterval(snake.moving);
     clearInterval(food.creating);
     canvas.drawGameOver("#da0000", field);
+  }
+
+  win(snake: Snake, food: Food, canvas: Canvas, field: Field) {
+    this.isStart = false;
+    this.isPlay = false;
+    this.isPause = false;
+
+    clearInterval(snake.moving);
+    clearInterval(food.creating);
+    canvas.drawWin("#fff", field);
   }
 
   reset(snake: Snake, canvas: Canvas, field: Field, food: Food) {
