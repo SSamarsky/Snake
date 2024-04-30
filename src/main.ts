@@ -7,7 +7,7 @@ import Game from "./classes/game";
 
 const root = document.querySelector("#app");
 
-const field = new Field(20, 20, 20, false);
+const field = new Field(20, 20, 20, true);
 const canvas = new Canvas();
 canvas.create(field.width, field.height, root);
 

@@ -63,14 +63,14 @@ export default class Game implements IGame {
     }
   }
 
-  finish(snake: Snake, food: Food) {
+  finish(snake: Snake, food: Food, canvas: Canvas, field: Field) {
     this.isStart = false;
     this.isPlay = false;
     this.isPause = false;
 
-    console.log("Game Over!");
     clearInterval(snake.moving);
     clearInterval(food.creating);
+    canvas.drawGameOver("#da0000", field);
   }
 
   reset(snake: Snake, canvas: Canvas, field: Field, food: Food) {

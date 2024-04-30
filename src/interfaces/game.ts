@@ -14,7 +14,7 @@ export default interface IGame {
 
     pause(snake: Snake, food: Food): void;
 
-    finish(snake: Snake, food: Food): void;
+    finish(snake: Snake, food: Food, canvas: Canvas, field: Field): void;
 
     reset(snake: Snake, canvas: Canvas, field: Field, food: Food): void;
 }

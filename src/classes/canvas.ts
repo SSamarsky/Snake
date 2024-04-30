@@ -231,4 +231,29 @@ export default class Canvas implements ICanvas {
       field.sizeCell - 1.5
     );
   }
+
+  drawGameOver(color: string, field: Field) {
+    let fontSize = 40;
+    if (field.width >= 400) fontSize = 45;
+    else if (field.width >= 300) fontSize = 35;
+    else if (field.width >= 200) fontSize = 25;
+    else fontSize = 20;
+
+    const x = field.width / 2 - fontSize * 2 - fontSize / 2 - fontSize / 4;
+    const y = field.width / 2 - fontSize;
+
+    if (this.context) {
+      this.context.font = `${fontSize}px sans-serif`;
+      this.context.fillStyle = color;
+    }
+
+    if (field.width >= 100) {
+      this.context?.fillText('Game Over!', x, y);
+    }
+
+    const emoji = ['😔', '😟', '😕', '🙁', '☹️', '😣', '😖', '😫', '😩', '🥺', '😢', '😭', '😠', '😡', '🤬', '😥', '🤯'];
+    const ranNum = Math.floor(Math.random() * emoji.length);
+
+    this.context?.fillText(emoji[ranNum], x + fontSize * 2 + fontSize / 5, y + fontSize + fontSize / 4);
+  }
 }
