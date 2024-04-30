@@ -5,6 +5,8 @@ import Food from "./food";
 import Game from "./game";
 import { TCoord } from "../types/coord";
 import Tool from "./tool";
+import Score from "./score";
+import Time from "./time";
 
 export default class Snake implements ISnake {
   color;
@@ -81,12 +83,20 @@ export default class Snake implements ISnake {
     }
   }
 
-  toggleSpeed(n: number, canvas: Canvas, field: Field, food: Food, game: Game) {
+  toggleSpeed(
+    n: number,
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    game: Game,
+    time: Time,
+    score: Score
+  ) {
     if (this.isDelayReducing) {
       this.isDelayReducing = false;
       clearInterval(this.moving);
       this.moving = setInterval(
-        () => this.move(canvas, field, food, game),
+        () => this.move(canvas, field, food, game, time, score),
         this.delay
       );
     } else {
@@ -94,13 +104,20 @@ export default class Snake implements ISnake {
       this.delayReducing = this.delay / n;
       clearInterval(this.moving);
       this.moving = setInterval(
-        () => this.move(canvas, field, food, game),
+        () => this.move(canvas, field, food, game, time, score),
         this.delayReducing
       );
     }
   }
 
-  move(canvas: Canvas, field: Field, food: Food, game: Game) {
+  move(
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    game: Game,
+    time: Time,
+    score: Score
+  ) {
     let [x, y] = Tool.getXY(this.coords[this.coords.length - 1]);
     const [removeX, removeY] = Tool.getXY(this.coords[0]);
 
@@ -157,9 +174,9 @@ export default class Snake implements ISnake {
     if (isCoord || isWall) {
       if (newHead["coord"] === coordPrevHead["coord"]) {
         this.isBug = true;
-        this.move(canvas, field, food, game);
+        this.move(canvas, field, food, game, time, score);
       } else {
-        game.gameOver(this, food, canvas, field);
+        game.gameOver(this, food, canvas, field, time);
       }
     } else {
       this.coords.push(newHead);
@@ -169,9 +186,10 @@ export default class Snake implements ISnake {
       if (newHead["coord"] === food.coord["coord"]) {
         food.isFood = false;
         this.size += 1;
+        score.update(this.size);
 
         if (this.size === field.countCellX * field.countCellY) {
-          game.win(this, food, canvas, field);
+          game.win(this, food, canvas, field, time);
         }
       } else {
         canvas.context?.clearRect(

@@ -5,6 +5,7 @@ import Snake from "./classes/snake";
 import Food from "./classes/food";
 import Game from "./classes/game";
 import Time from "./classes/time";
+import Score from "./classes/score";
 
 const root = document.querySelector("#app");
 
@@ -12,6 +13,7 @@ const htmlTime = document.querySelector("#time");
 const htmlScore = document.querySelector("#score");
 
 const time = new Time(htmlTime!);
+const score = new Score(htmlScore!);
 
 const field = new Field(10, 10, 20, false);
 const canvas = new Canvas();
@@ -33,35 +35,35 @@ document.addEventListener("keydown", (e) => {
 
   if (e.key === " " || e.key === "Enter") {
     if (game.isPause) {
-      game.play(snake, canvas, field, food, time);
+      game.play(snake, canvas, field, food, time, score);
       btnStart!.textContent = "Pause";
     } else if (game.isPlay) {
       game.pause(snake, food, time);
       btnStart!.textContent = "Play";
     }
 
-    game.start(snake, canvas, field, food, time);
+    game.start(snake, canvas, field, food, time, score);
   }
 
   const keysReset = ["R", "r", "К", "к"];
   if (keysReset.includes(e.key)) {
-    game.reset(snake, canvas, field, food, time);
+    game.reset(snake, canvas, field, food, time, score);
     btnStart!.textContent = "Play";
   }
 
   const keysToggleSpeed = ["E", "e", "У", "у"];
   if (keysToggleSpeed.includes(e.key) && game.isStart) {
-    snake.toggleSpeed(2, canvas, field, food, game);
+    snake.toggleSpeed(2, canvas, field, food, game, time, score);
   }
 });
 
 btnStart?.addEventListener("click", () => {
   if (!game.isStart) {
-    game.start(snake, canvas, field, food, time);
+    game.start(snake, canvas, field, food, time, score);
     btnStart.textContent = "Pause";
   } else {
     if (game.isPause) {
-      game.play(snake, canvas, field, food, time);
+      game.play(snake, canvas, field, food, time, score);
       btnStart.textContent = "Pause";
     } else if (game.isPlay) {
       game.pause(snake, food, time);
@@ -71,6 +73,6 @@ btnStart?.addEventListener("click", () => {
 });
 
 btnReset?.addEventListener("click", () => {
-  game.reset(snake, canvas, field, food, time);
+  game.reset(snake, canvas, field, food, time, score);
   btnStart!.textContent = "Play";
 });

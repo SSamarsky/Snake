@@ -2,6 +2,7 @@ import IGame from "../interfaces/game";
 import Canvas from "./canvas";
 import Field from "./field";
 import Food from "./food";
+import Score from "./score";
 import Snake from "./snake";
 import Time from "./time";
 
@@ -16,7 +17,14 @@ export default class Game implements IGame {
     this.isPause = false;
   }
 
-  start(snake: Snake, canvas: Canvas, field: Field, food: Food, time: Time) {
+  start(
+    snake: Snake,
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    time: Time,
+    score: Score
+  ) {
     if (!this.isStart) {
       this.isStart = true;
       this.isPlay = true;
@@ -28,7 +36,7 @@ export default class Game implements IGame {
       snake.create(canvas, field);
 
       snake.moving = setInterval(
-        () => snake.move(canvas, field, food, this),
+        () => snake.move(canvas, field, food, this, time, score),
         snake.delay
       );
       food.creating = setInterval(
@@ -40,13 +48,20 @@ export default class Game implements IGame {
     }
   }
 
-  play(snake: Snake, canvas: Canvas, field: Field, food: Food, time: Time) {
+  play(
+    snake: Snake,
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    time: Time,
+    score: Score
+  ) {
     if (this.isStart && this.isPause && !this.isPlay) {
       this.isPlay = true;
       this.isPause = false;
 
       snake.moving = setInterval(
-        () => snake.move(canvas, field, food, this),
+        () => snake.move(canvas, field, food, this, time, score),
         snake.delay
       );
       food.creating = setInterval(
@@ -94,7 +109,14 @@ export default class Game implements IGame {
     time.pause();
   }
 
-  reset(snake: Snake, canvas: Canvas, field: Field, food: Food, time: Time) {
+  reset(
+    snake: Snake,
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    time: Time,
+    score: Score
+  ) {
     this.isStart = false;
     this.isPlay = false;
     this.isPause = false;
@@ -110,5 +132,6 @@ export default class Game implements IGame {
     snake.create(canvas, field);
 
     time.clear();
+    score.clear();
   }
 }
