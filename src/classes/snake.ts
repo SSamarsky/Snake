@@ -176,7 +176,7 @@ export default class Snake implements ISnake {
         this.isBug = true;
         this.move(canvas, field, food, game, time, score);
       } else {
-        game.gameOver(this, food, canvas, field, time);
+        game.finish(this, food, canvas, field, time, false);
       }
     } else {
       this.coords.push(newHead);
@@ -189,7 +189,7 @@ export default class Snake implements ISnake {
         score.update(this.size);
 
         if (this.size === field.countCellX * field.countCellY) {
-          game.win(this, food, canvas, field, time);
+          game.finish(this, food, canvas, field, time, true);
         }
       } else {
         canvas.context?.clearRect(
@@ -203,7 +203,26 @@ export default class Snake implements ISnake {
     }
   }
 
+  playMoving(
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    game: Game,
+    time: Time,
+    score: Score
+  ) {
+    this.moving = setInterval(
+      () => this.move(canvas, field, food, game, time, score),
+      this.delay
+    );
+  }
+
+  stopMoving() {
+    clearInterval(this.moving);
+  }
+
   clear() {
+    this.stopMoving();
     this.coords.length = 0;
     this.direction = "y+";
     this.size = 2;

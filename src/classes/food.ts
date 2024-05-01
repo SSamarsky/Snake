@@ -35,7 +35,19 @@ export default class Food {
     }
   }
 
+  playCreating(canvas: Canvas, field: Field, snakeCoords: TCoord[]) {
+    this.creating = setInterval(
+      () => this.create(canvas, field, snakeCoords),
+      1000
+    );
+  }
+
+  stopCreating() {
+    clearInterval(this.creating);
+  }
+
   clear() {
+    this.stopCreating();
     this.coord["coord"] = "";
     this.x = 0;
     this.y = 0;

@@ -30,16 +30,6 @@ export default interface IGame {
 
   pause(snake: Snake, food: Food, time: Time): void;
 
-  gameOver(
-    snake: Snake,
-    food: Food,
-    canvas: Canvas,
-    field: Field,
-    time: Time
-  ): void;
-
-  win(snake: Snake, food: Food, canvas: Canvas, field: Field, time: Time): void;
-
   reset(
     snake: Snake,
     canvas: Canvas,
@@ -47,5 +37,14 @@ export default interface IGame {
     food: Food,
     time: Time,
     score: Score
+  ): void;
+
+  finish(
+    snake: Snake,
+    food: Food,
+    canvas: Canvas,
+    field: Field,
+    time: Time,
+    isWin: boolean
   ): void;
 }

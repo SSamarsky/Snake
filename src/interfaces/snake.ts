@@ -43,5 +43,16 @@ export default interface ISnake {
     score: Score
   ): void;
 
+  playMoving(
+    canvas: Canvas,
+    field: Field,
+    food: Food,
+    game: Game,
+    time: Time,
+    score: Score
+  ): void;
+
+  stopMoving(): void;
+
   clear(): void;
 }
