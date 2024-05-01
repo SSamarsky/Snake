@@ -29,7 +29,7 @@ export default class Food {
       let isCoord = Tool.checkCoord(this.coord, snakeCoords);
 
       if (!isCoord) {
-        canvas.drawPoint(this.color, this.coord, field);
+        canvas.drawFood(this.color, this.coord, field);
         this.isFood = true;
       }
     }

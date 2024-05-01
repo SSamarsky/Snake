@@ -15,7 +15,7 @@ const htmlScore = document.querySelector("#score");
 const time = new Time(htmlTime!);
 const score = new Score(htmlScore!);
 
-const field = new Field(10, 10, 20, false);
+const field = new Field(20, 20, 20, true);
 const canvas = new Canvas();
 canvas.create(field.width, field.height, root);
 

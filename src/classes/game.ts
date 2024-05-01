@@ -92,7 +92,7 @@ export default class Game implements IGame {
 
     clearInterval(snake.moving);
     clearInterval(food.creating);
-    canvas.drawGameOver("#da0000", field);
+    canvas.drawEndGame("#da0000", field, false);
 
     time.pause();
   }
@@ -104,7 +104,8 @@ export default class Game implements IGame {
 
     clearInterval(snake.moving);
     clearInterval(food.creating);
-    canvas.drawWin("#fff", field);
+    
+    canvas.drawEndGame("#fff", field, true);
 
     time.pause();
   }

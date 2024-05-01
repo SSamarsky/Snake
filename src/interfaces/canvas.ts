@@ -8,7 +8,9 @@ export default interface ICanvas {
 
   clear(width: number, height: number): void;
 
-  drawPoint(color: string, coord: TCoord, field: Field): void;
+  drawRectangle(color: string, x1: number, y1: number, x2: number, y2: number): void;
+
+  drawFood(color: string, coord: TCoord, field: Field): void;
 
   drawEyes(color: string, coord: TCoord, field: Field): void;
 
@@ -16,7 +18,9 @@ export default interface ICanvas {
 
   clearEyes(color: string, coord: TCoord, field: Field): void;
 
-  drawGameOver(color: string, field: Field): void;
+  drawEndGame(color: string, field: Field, isWin: boolean): void;
 
-  drawWin(color: string, field: Field): void;
+  drawWin(width: number, fontSize: number): void;
+
+  drawGameOver(width: number, fontSize: number): void;
 }
