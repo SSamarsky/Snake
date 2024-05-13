@@ -5,9 +5,11 @@ import Tool from "./tool";
 
 export default class Canvas implements ICanvas {
   context: CanvasRenderingContext2D | null | undefined;
+  el!: HTMLCanvasElement;
 
   constructor() {
     this.context;
+    this.el;
   }
 
   create(width: number, height: number, root: Element | null) {
@@ -17,6 +19,7 @@ export default class Canvas implements ICanvas {
     canvas.height = height;
     canvas.className = "canvas";
     root?.appendChild(canvas);
+    this.el = canvas;
   }
 
   clear(width: number, height: number) {

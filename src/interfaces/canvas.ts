@@ -3,6 +3,7 @@ import { TCoord } from "../types/coord";
 
 export default interface ICanvas {
   context: CanvasRenderingContext2D | null | undefined;
+  el: HTMLCanvasElement;
 
   create(width: number, height: number, root: Element | null): void;
 
