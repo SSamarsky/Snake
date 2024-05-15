@@ -15,6 +15,7 @@ export default class Delay extends Setting {
   }
 
   setValue(field: Field, canvas: Canvas, snake: Snake) {
+    if (!field && !canvas) return;      // fix overload signature
     this.valueText = `${this.value}ms`;
     this.valueTextEl.textContent = this.valueText;
     this.valueRangeEl.value = this.value;

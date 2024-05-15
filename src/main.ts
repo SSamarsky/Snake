@@ -29,27 +29,27 @@ const food = new Food("orange");
 const game = new Game();
 
 const sizeText = document.querySelector("#size-text");
-const sizeRange = document.querySelector("#size-range");
+const sizeRange = document.querySelector("#size-range") as HTMLInputElement;
 const sizeRadio = [
   ...document.querySelectorAll("input[name=size][type=radio]"),
-];
+] as HTMLInputElement[];
 const size = new Size("size", "20", sizeText!, sizeRange!, sizeRadio);
 size.initial(field, canvas, snake);
 
 const delayText = document.querySelector("#delay-text");
-const delayRange = document.querySelector("#delay-range");
+const delayRange = document.querySelector("#delay-range") as HTMLInputElement;
 const delayRadio = [
   ...document.querySelectorAll("input[name=delay][type=radio]"),
-];
-const delay = new Delay("delay", "200", delayText!, delayRange!, delayRadio);
+] as HTMLInputElement[];
+const delay = new Delay("delay", "200", delayText!, delayRange, delayRadio);
 delay.initial(field, canvas, snake);
 
 const cellText = document.querySelector("#cell-text");
-const cellRange = document.querySelector("#cell-range");
+const cellRange = document.querySelector("#cell-range") as HTMLInputElement;
 const cellRadio = [
   ...document.querySelectorAll("input[name=cell][type=radio]"),
-];
-const cell = new Cell("cell", "20", cellText!, cellRange!, cellRadio);
+] as HTMLInputElement[];
+const cell = new Cell("cell", "20", cellText!, cellRange, cellRadio);
 cell.initial(field, canvas, snake);
 
 const btnStart = document.querySelector("#btn-start");
