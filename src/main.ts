@@ -9,6 +9,7 @@ import Score from "./classes/score";
 import Size from "./classes/size";
 import Delay from "./classes/delay";
 import Cell from "./classes/cell";
+import Walls from "./classes/walls";
 
 const root = document.querySelector("#app");
 
@@ -51,6 +52,11 @@ const cellRadio = [
 ] as HTMLInputElement[];
 const cell = new Cell("cell", "20", cellText!, cellRange, cellRadio);
 cell.initial(field, canvas, snake);
+
+const wallsText = document.querySelector("#walls-text");
+const wallsCheckbox = document.querySelector("#walls") as HTMLInputElement;
+const walls = new Walls('walls', true, wallsText!, wallsCheckbox);
+walls.initial(field, canvas);
 
 const btnStart = document.querySelector("#btn-start");
 const btnReset = document.querySelector("#btn-reset");
