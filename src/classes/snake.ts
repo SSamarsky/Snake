@@ -42,12 +42,12 @@ export default class Snake implements ISnake {
 
     const tail = {
       dir: this.direction,
-      coord: c + "-" + c,
+      coord: c + "-" + (c - field.sizeCell),
     };
 
     const head = {
       dir: this.direction,
-      coord: c + "-" + (c + field.sizeCell),
+      coord: c + "-" + c,
     };
 
     this.coords.push(tail, head);
