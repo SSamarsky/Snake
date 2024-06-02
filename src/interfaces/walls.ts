@@ -1,5 +1,6 @@
 import Canvas from "../classes/canvas";
 import Field from "../classes/field";
+import Lang from "../classes/lang";
 
 export default interface IWalls {
   type: string;
@@ -8,11 +9,11 @@ export default interface IWalls {
   textEl: Element;
   checkboxEl: HTMLInputElement;
 
-  setValue(field: Field, canvas: Canvas): void;
+  setValue(field: Field, canvas: Canvas, lang: Lang): void;
 
-  initial(field: Field, canvas: Canvas): void;
+  initial(field: Field, canvas: Canvas, lang: Lang): void;
 
-  change(field: Field, canvas: Canvas): void;
+  change(field: Field, canvas: Canvas, lang: Lang): void;
 
   switchLock(): void;
 }

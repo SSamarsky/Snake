@@ -16,19 +16,19 @@
 
 <body>
   <header class="header">
-    <h1>Snake</h1>
+    <h1 data-i18n="title">Snake</h1>
   </header>
 
   <main class="main">
     <div class="block">
       <div class="block__head">
-        <h2>Settings</h2>
+        <h2 data-i18n="settings">Settings</h2>
         <label><input id="lang" type="checkbox" name="lang"><span id="lang-text">En</span></label>
       </div>
       <ul class="block__list">
         <li class="list">
           <div class="list__head">
-            <p>Size</p>
+            <p data-i18n="size">Size</p>
             <span id="size-text">15x15</span>
           </div>
           <ul class="item__list">
@@ -47,7 +47,7 @@
 
         <li class="list">
           <div class="list__head">
-            <p>Delay</p>
+            <p data-i18n="delay">Delay</p>
             <span id="delay-text">250ms</span>
           </div>
           <ul class="item__list">
@@ -66,7 +66,7 @@
 
         <li class="list">
           <div class="list__head">
-            <p>Cell</p>
+            <p data-i18n="cell">Cell</p>
             <span id="cell-text">20px</span>
           </div>
           <ul class="item__list">
@@ -85,12 +85,13 @@
 
         <li class="item__checkbox">
           <label>
-            <p class="bold">Walls: </p><input id="walls" type="checkbox" name="walls"><span id="walls-text">Yes</span>
+            <p class="bold" data-i18n="walls">Walls: </p><input id="walls" type="checkbox" name="walls"><span
+              id="walls-text" data-i18n="yesNo">Yes</span>
           </label>
         </li>
         <li class="buttons">
-          <button id="btn-start" class="btn">Play</button>
-          <button id="btn-reset" class="btn">Reset</button>
+          <button id="btn-start" class="btn" data-i18n="play">Play</button>
+          <button id="btn-reset" class="btn" data-i18n="reset">Reset</button>
         </li>
       </ul>
     </div>
@@ -98,11 +99,11 @@
     <div class="game">
       <div id="app"></div>
       <ul>
-        <li>Enter, Space - play/pause</li>
-        <li>R - reset</li>
-        <li>E - hasten</li>
+        <li data-i18n="helpText1">Enter, space - play/pause</li>
+        <li data-i18n="helpText2">R - reset</li>
+        <li data-i18n="helpText3">E - hasten</li>
       </ul>
-      <p>Snake's control: ←↑→↓ or AWDS</p>
+      <p data-i18n="helpText4">Snake's control: ←↑→↓ or AWDS</p>
     </div>
 
     <div class="info">
@@ -111,22 +112,22 @@
           <p id="time">00:00:00</p>
         </li>
         <li class="fix--width">
-          <p>Score: </p>
+          <p data-i18n="score">Score: </p>
           <span id="score">0</span>
         </li>
       </ul>
       <div class="wins">
         <div class="wins__head">
-          <h2 id="wins-text">The wins' list</h2>
-          <button id="wins-clear" class="invisible">clear</button>
+          <h2 data-i18n="winsList" id="wins-text">The wins' list</h2>
+          <button data-i18n="clear" id="wins-clear" class="invisible">clear</button>
         </div>
-        <p class="wins__text">The wins are not yet...</p>
+        <p data-i18n="winsText" class="wins__text">The wins are not yet...</p>
         <table class="wins__table invisible">
           <tr>
-            <th>Time</th>
-            <th>Size</th>
-            <th>Speed</th>
-            <th>Walls</th>
+            <th data-i18n="time">Time</th>
+            <th data-i18n="size">Size</th>
+            <th data-i18n="delay">Delay</th>
+            <th data-i18n="walls">Walls</th>
           </tr>
         </table>
       </div>

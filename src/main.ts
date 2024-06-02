@@ -10,6 +10,7 @@ import Size from "./classes/size";
 import Delay from "./classes/delay";
 import Cell from "./classes/cell";
 import Walls from "./classes/walls";
+import Lang from "./classes/lang";
 
 const root = document.querySelector("#app");
 
@@ -28,6 +29,9 @@ snake.create(canvas, field);
 const food = new Food("orange");
 
 const game = new Game();
+
+const lang = new Lang();
+lang.init();
 
 const sizeText = document.querySelector("#size-text");
 const sizeRange = document.querySelector("#size-range") as HTMLInputElement;
@@ -55,23 +59,23 @@ cell.initial(field, canvas, snake);
 
 const wallsText = document.querySelector("#walls-text");
 const wallsCheckbox = document.querySelector("#walls") as HTMLInputElement;
-const walls = new Walls('walls', true, wallsText!, wallsCheckbox);
-walls.initial(field, canvas);
+const walls = new Walls("walls", true, wallsText!, wallsCheckbox);
+walls.initial(field, canvas, lang);
 
 const btnStart = document.querySelector("#btn-start");
 const btnReset = document.querySelector("#btn-reset");
 
 document.addEventListener("keydown", (e) => {
   snake.setDirection(e);
-  btnStart!.textContent = "Pause";
+  btnStart!.textContent = lang.isRu ? "Пауза" : "Pause";
 
   if (e.key === " " || e.key === "Enter") {
     if (game.isPause) {
       game.play(snake, canvas, field, food, time, score);
-      btnStart!.textContent = "Pause";
+      btnStart!.textContent = lang.isRu ? "Пауза" : "Pause";
     } else if (game.isPlay) {
       game.pause(snake, food, time);
-      btnStart!.textContent = "Play";
+      btnStart!.textContent = lang.isRu ? "Играть" : "Play";
     }
 
     game.start(snake, canvas, field, food, time, score);
@@ -80,7 +84,7 @@ document.addEventListener("keydown", (e) => {
   const keysReset = ["R", "r", "К", "к"];
   if (keysReset.includes(e.key)) {
     game.reset(snake, canvas, field, food, time, score);
-    btnStart!.textContent = "Play";
+    btnStart!.textContent = lang.isRu ? "Играть" : "Play";
   }
 
   const keysToggleSpeed = ["E", "e", "У", "у"];
@@ -92,19 +96,19 @@ document.addEventListener("keydown", (e) => {
 btnStart?.addEventListener("click", () => {
   if (!game.isStart) {
     game.start(snake, canvas, field, food, time, score);
-    btnStart.textContent = "Pause";
+    btnStart.textContent = lang.isRu ? "Пауза" : "Pause";
   } else {
     if (game.isPause) {
       game.play(snake, canvas, field, food, time, score);
-      btnStart.textContent = "Pause";
+      btnStart.textContent = lang.isRu ? "Пауза" : "Pause";
     } else if (game.isPlay) {
       game.pause(snake, food, time);
-      btnStart.textContent = "Play";
+      btnStart.textContent = lang.isRu ? "Играть" : "Play";
     }
   }
 });
 
 btnReset?.addEventListener("click", () => {
   game.reset(snake, canvas, field, food, time, score);
-  btnStart!.textContent = "Play";
+  btnStart!.textContent = lang.isRu ? "Играть" : "Play";
 });
