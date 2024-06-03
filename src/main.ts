@@ -62,8 +62,8 @@ const wallsCheckbox = document.querySelector("#walls") as HTMLInputElement;
 const walls = new Walls("walls", true, wallsText!, wallsCheckbox);
 walls.initial(field, canvas, lang);
 
-const btnStart = document.querySelector("#btn-start");
-const btnReset = document.querySelector("#btn-reset");
+const btnStart = document.querySelector("#btn-start") as HTMLElement;
+const btnReset = document.querySelector("#btn-reset") as HTMLElement;
 
 document.addEventListener("keydown", (e) => {
   snake.setDirection(e);
@@ -106,9 +106,12 @@ btnStart?.addEventListener("click", () => {
       btnStart.textContent = lang.isRu ? "Играть" : "Play";
     }
   }
+  btnStart.blur();
 });
 
 btnReset?.addEventListener("click", () => {
   game.reset(snake, canvas, field, food, time, score);
   btnStart!.textContent = lang.isRu ? "Играть" : "Play";
+
+  btnReset.blur();
 });
