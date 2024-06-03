@@ -1,5 +1,4 @@
 import ILang from "../interfaces/lang";
-
 const ru = {
   title: "Змейка",
   settings: "Настройки",
@@ -68,14 +67,19 @@ export default class Lang implements ILang {
     this.textEl!.textContent = this.text;
     this.checkboxEl!.checked = this.isRu;
     this.setText();
+
+    const walls = document.querySelector("#walls-text");
+    if (this.isRu)
+      walls!.textContent =
+        (localStorage.getItem("walls") || "true") === "true" ? "Да" : "Нет";
+    else
+      walls!.textContent =
+        (localStorage.getItem("walls") || "true") === "true" ? "Yes" : "No";
   }
 
   switch() {
     this.isRu = !this.isRu;
     this.checkboxEl!.checked = this.isRu;
-
-    if (this.isRu) this.text = "Ru";
-    else this.text = "En";
 
     this.textEl!.textContent = this.text;
 
@@ -91,5 +95,16 @@ export default class Lang implements ILang {
       if (this.isRu) el.textContent = this.textsRu[dataAttr];
       else el.textContent = this.textsEn[dataAttr];
     });
+
+    const walls = document.querySelector("#walls-text");
+    if (this.isRu) {
+      this.text = "Ru";
+      walls!.textContent =
+        (localStorage.getItem("walls") || "true") === "true" ? "Да" : "Нет";
+    } else {
+      this.text = "En";
+      walls!.textContent =
+        (localStorage.getItem("walls") || "true") === "true" ? "Yes" : "No";
+    }
   }
 }

@@ -30,7 +30,7 @@ export default class Walls implements IWalls {
 
     if (lang.isRu) this.text = this.value ? "Да" : "Нет";
     else this.text = this.value ? "Yes" : "No";
-    
+
     this.textEl.textContent = this.text;
   }
 
@@ -39,7 +39,9 @@ export default class Walls implements IWalls {
     if (valueSave !== null) this.value = valueSave === "true" ? true : false;
 
     this.checkboxEl.checked = this.value;
-    this.checkboxEl.addEventListener("click", () => this.change(field, canvas, lang));
+    this.checkboxEl.addEventListener("click", () =>
+      this.change(field, canvas, lang)
+    );
     this.setValue(field, canvas, lang);
   }
 
