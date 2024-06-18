@@ -11,6 +11,7 @@ import Delay from "./classes/delay";
 import Cell from "./classes/cell";
 import Walls from "./classes/walls";
 import Lang from "./classes/lang";
+import Settings from "./classes/settings";
 
 const root = document.querySelector("#app");
 
@@ -62,6 +63,8 @@ const wallsCheckbox = document.querySelector("#walls") as HTMLInputElement;
 const walls = new Walls("walls", true, wallsText!, wallsCheckbox);
 walls.initial(field, canvas, lang);
 
+const settings = new Settings(size, delay, cell, walls);
+
 const btnStart = document.querySelector("#btn-start") as HTMLElement;
 const btnReset = document.querySelector("#btn-reset") as HTMLElement;
 
@@ -78,12 +81,12 @@ document.addEventListener("keydown", (e) => {
       btnStart!.textContent = lang.isRu ? "Играть" : "Play";
     }
 
-    game.start(snake, canvas, field, food, time, score);
+    game.start(snake, canvas, field, food, time, score, settings);
   }
 
   const keysReset = ["R", "r", "К", "к"];
   if (keysReset.includes(e.key)) {
-    game.reset(snake, canvas, field, food, time, score);
+    game.reset(snake, canvas, field, food, time, score, settings);
     btnStart!.textContent = lang.isRu ? "Играть" : "Play";
   }
 
@@ -95,7 +98,7 @@ document.addEventListener("keydown", (e) => {
 
 btnStart?.addEventListener("click", () => {
   if (!game.isStart) {
-    game.start(snake, canvas, field, food, time, score);
+    game.start(snake, canvas, field, food, time, score, settings);
     btnStart.textContent = lang.isRu ? "Пауза" : "Pause";
   } else {
     if (game.isPause) {
@@ -110,7 +113,7 @@ btnStart?.addEventListener("click", () => {
 });
 
 btnReset?.addEventListener("click", () => {
-  game.reset(snake, canvas, field, food, time, score);
+  game.reset(snake, canvas, field, food, time, score, settings);
   btnStart!.textContent = lang.isRu ? "Играть" : "Play";
 
   btnReset.blur();

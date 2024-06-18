@@ -7,6 +7,7 @@ import { TCoord } from "../types/coord";
 import Tool from "./tool";
 import Score from "./score";
 import Time from "./time";
+import Settings from "./settings";
 
 export default class Snake implements ISnake {
   color;
@@ -90,13 +91,14 @@ export default class Snake implements ISnake {
     food: Food,
     game: Game,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ) {
     if (this.isDelayReducing) {
       this.isDelayReducing = false;
       clearInterval(this.moving);
       this.moving = setInterval(
-        () => this.move(canvas, field, food, game, time, score),
+        () => this.move(canvas, field, food, game, time, score, settings),
         this.delay
       );
     } else {
@@ -104,7 +106,7 @@ export default class Snake implements ISnake {
       this.delayReducing = this.delay / n;
       clearInterval(this.moving);
       this.moving = setInterval(
-        () => this.move(canvas, field, food, game, time, score),
+        () => this.move(canvas, field, food, game, time, score, settings),
         this.delayReducing
       );
     }
@@ -116,7 +118,8 @@ export default class Snake implements ISnake {
     food: Food,
     game: Game,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ) {
     let [x, y] = Tool.getXY(this.coords[this.coords.length - 1]);
     const [removeX, removeY] = Tool.getXY(this.coords[0]);
@@ -174,9 +177,9 @@ export default class Snake implements ISnake {
     if (isCoord || isWall) {
       if (newHead["coord"] === coordPrevHead["coord"]) {
         this.isBug = true;
-        this.move(canvas, field, food, game, time, score);
+        this.move(canvas, field, food, game, time, score, settings);
       } else {
-        game.finish(this, food, canvas, field, time, false);
+        game.finish(this, food, canvas, field, time, false, settings);
       }
     } else {
       this.coords.push(newHead);
@@ -189,7 +192,7 @@ export default class Snake implements ISnake {
         score.update(this.size);
 
         if (this.size === field.countCellX * field.countCellY) {
-          game.finish(this, food, canvas, field, time, true);
+          game.finish(this, food, canvas, field, time, true, settings);
         }
       } else {
         canvas.context?.clearRect(
@@ -209,10 +212,11 @@ export default class Snake implements ISnake {
     food: Food,
     game: Game,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ) {
     this.moving = setInterval(
-      () => this.move(canvas, field, food, game, time, score),
+      () => this.move(canvas, field, food, game, time, score, settings),
       this.delay
     );
   }

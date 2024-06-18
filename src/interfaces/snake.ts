@@ -3,6 +3,7 @@ import Field from "../classes/field";
 import Food from "../classes/food";
 import Game from "../classes/game";
 import Score from "../classes/score";
+import Settings from "../classes/settings";
 import Time from "../classes/time";
 import { TCoord } from "../types/coord";
 
@@ -31,7 +32,8 @@ export default interface ISnake {
     food: Food,
     game: Game,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ): void;
 
   move(
@@ -40,7 +42,8 @@ export default interface ISnake {
     food: Food,
     game: Game,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ): void;
 
   playMoving(
@@ -49,7 +52,8 @@ export default interface ISnake {
     food: Food,
     game: Game,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ): void;
 
   stopMoving(): void;

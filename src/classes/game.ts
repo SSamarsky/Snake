@@ -3,6 +3,7 @@ import Canvas from "./canvas";
 import Field from "./field";
 import Food from "./food";
 import Score from "./score";
+import Settings from "./settings";
 import Snake from "./snake";
 import Time from "./time";
 
@@ -23,17 +24,20 @@ export default class Game implements IGame {
     field: Field,
     food: Food,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ) {
     if (!this.isStart) {
-      this.reset(snake, canvas, field, food, time, score);
+      this.reset(snake, canvas, field, food, time, score, settings);
 
       this.isStart = true;
       this.isPlay = true;
 
-      snake.playMoving(canvas, field, food, this, time, score);
+      snake.playMoving(canvas, field, food, this, time, score, settings);
       food.playCreating(canvas, field, snake.coords);
       time.play();
+
+      settings.disable();
     }
   }
 
@@ -43,13 +47,14 @@ export default class Game implements IGame {
     field: Field,
     food: Food,
     time: Time,
-    score: Score
+    score: Score, 
+    settings: Settings
   ) {
     if (this.isStart && this.isPause && !this.isPlay) {
       this.isPlay = true;
       this.isPause = false;
 
-      snake.playMoving(canvas, field, food, this, time, score);
+      snake.playMoving(canvas, field, food, this, time, score, settings);
       food.playCreating(canvas, field, snake.coords);
       time.play();
     }
@@ -72,7 +77,8 @@ export default class Game implements IGame {
     field: Field,
     food: Food,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ) {
     this.isStart = false;
     this.isPlay = false;
@@ -85,6 +91,7 @@ export default class Game implements IGame {
     score.clear();
 
     snake.create(canvas, field);
+    settings.enable();
   }
 
   finish(
@@ -93,7 +100,8 @@ export default class Game implements IGame {
     canvas: Canvas,
     field: Field,
     time: Time,
-    isWin: boolean = false
+    isWin: boolean = false,
+    settings: Settings
   ) {
     this.isStart = false;
     this.isPlay = false;
@@ -102,6 +110,8 @@ export default class Game implements IGame {
     snake.stopMoving();
     food.stopCreating();
     time.pause();
+
+    settings.enable();
 
     if (isWin) canvas.drawEndGame("#fff", field, true);
     else canvas.drawEndGame("#da0000", field, false);

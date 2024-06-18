@@ -2,6 +2,7 @@ import Canvas from "../classes/canvas";
 import Field from "../classes/field";
 import Food from "../classes/food";
 import Score from "../classes/score";
+import Settings from "../classes/settings";
 import Snake from "../classes/snake";
 import Time from "../classes/time";
 
@@ -16,7 +17,8 @@ export default interface IGame {
     field: Field,
     food: Food,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ): void;
 
   play(
@@ -25,7 +27,8 @@ export default interface IGame {
     field: Field,
     food: Food,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ): void;
 
   pause(snake: Snake, food: Food, time: Time): void;
@@ -36,7 +39,8 @@ export default interface IGame {
     field: Field,
     food: Food,
     time: Time,
-    score: Score
+    score: Score,
+    settings: Settings
   ): void;
 
   finish(
@@ -45,6 +49,7 @@ export default interface IGame {
     canvas: Canvas,
     field: Field,
     time: Time,
-    isWin: boolean
+    isWin: boolean,
+    settings: Settings
   ): void;
 }
